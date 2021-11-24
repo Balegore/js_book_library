@@ -1,15 +1,89 @@
-function books(title, author, pages, read){
+function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function(){
-        return `${title} by ${author}, ${pages} pages, ${read}.`
-    };
 }
 
-const theHobbit = new books('The Hobbit', 'J.R.R Tolkien', '295', 'not read');
+function addBookToLibrary() { //add books via inputs
 
-console.log(theHobbit.info());
+}
 
-console.log(theHobbit.constructor);
+function showBooks(){   //show all books in cards that have been added
+
+}
+
+function removeBook(){ //take away any shown books
+
+}
+
+function readStatus(){ //change read status on books in libary
+
+}
+
+function createForm(){ //create form
+    const formMarkup = `
+    <form onsubmit="return false">
+        <ul>                
+            <li>
+                <label for="formTitle">Title</label>
+                <input id="formTitle" required>
+            </li>
+            
+            <li>
+                <label for="formAuthor">Author</label>
+                <input id="formAuthor" required>
+            </li>
+            
+            <li>
+                <label for="formPages">Number of Pages</label>
+                <input id="formPages" required>
+            </li>
+            
+            <li>
+                <p>Have you read?</p>
+                <label for="formReadYes">Yes</label><input name ="haveRead" type="radio" id="formReadYes" required>
+            
+                <label for ="formReadNo">No</label><input name ="haveRead" type="radio" id="formReadNo" required>
+            </li>                             
+            <li>
+            <button>Submit</button>
+            </li>
+        </ul>
+    </form>
+    
+    `;
+
+    formContainer.innerHTML = formMarkup;
+
+
+}
+
+function removeForm(){ //remove form 
+
+}
+
+function buttonPress(target){
+    console.log(target);
+    switch(target){
+        case 'addBooks':
+            createForm();
+            return;
+        case 'viewBooks':
+            showBooks();
+            return;
+        default:    //shouldn't happen.. do nothing
+            return; 
+    }                   
+}
+
+let myLibrary = [];
+
+const formContainer = document.querySelector('#formContainer');
+const buttons = document.querySelector('#buttonContainer');
+
+console.log('buttons');
+
+removeBook.prototype = Object.create(Book.prototype);
+
+buttons.addEventListener('click', button => buttonPress(button.target.id))

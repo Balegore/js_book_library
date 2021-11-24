@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="buttonContainer">
+        <button id="addBooks">Add Book</button>
+        <button id="viewBooks">View Books</button>    
+    </div>
+    <div id="formContainer">
+    </div>
+    <form onsubmit="return false">
+        <ul>                
+            <li>
+                <label for="formTitle">Title</label>
+                <input id="formTitle" required>
+            </li>
+            
+            <li>
+                <label for="formAuthor">Author</label>
+                <input id="formAuthor" required>
+            </li>
+            
+            <li>
+                <label for="formPages">Number of Pages</label>
+                <input id="formPages" required>
+            </li>
+            
+            <li>
+                <p>Have you read?</p>
+                <label for="formReadYes">Yes</label><input name ="haveRead" type="radio" id="formReadYes" required>
+            
+                <label for ="formReadNo">No</label><input name ="haveRead" type="radio" id="formReadNo" required>
+            </li>                             
+            <li>
+            <button>Submit</button>
+            </li>
+        </ul>
+    </form>
+    
+</body>
+</html>
