@@ -10,39 +10,34 @@
 </head>
 <body>
     <div id="buttonContainer">
-        <button id="addBooks">Add Book</button>
-        <button id="viewBooks">View Books</button>    
+        <button id="addLibrary">Add Book</button>
+        <button id="viewLibrary">View Books</button> 
     </div>
     <div id="formContainer">
+        <form id="bookForm" onsubmit="return false">                           
+               <div>
+                    <label for="formTitle">Title</label>
+                    <input name="title" id="formTitle">                              
+               <div>
+                    <label for="formAuthor">Author</label>
+                    <input name="author" id="formAuthor">
+               </div>                
+               <div>
+                    <label for="formPages">Number of Pages</label>
+                    <input name="pages" id="formPages">
+               </div>                
+               <div>
+                    <p>Have you read?</p>
+                    <label for="read">Yes</label>
+                    <input name ="read" type="radio" id="formReadYes" value="true" checked>                    
+                    <label for ="read">No</label>
+                    <input name ="read" type="radio" id="formReadNo" value ="false">
+               </div>                             
+               <div>
+                    <button id="addBook">Submit</button>
+               </div>
+            
+        </form>
     </div>
-    <form onsubmit="return false">
-        <ul>                
-            <li>
-                <label for="formTitle">Title</label>
-                <input id="formTitle" required>
-            </li>
-            
-            <li>
-                <label for="formAuthor">Author</label>
-                <input id="formAuthor" required>
-            </li>
-            
-            <li>
-                <label for="formPages">Number of Pages</label>
-                <input id="formPages" required>
-            </li>
-            
-            <li>
-                <p>Have you read?</p>
-                <label for="formReadYes">Yes</label><input name ="haveRead" type="radio" id="formReadYes" required>
-            
-                <label for ="formReadNo">No</label><input name ="haveRead" type="radio" id="formReadNo" required>
-            </li>                             
-            <li>
-            <button>Submit</button>
-            </li>
-        </ul>
-    </form>
-    
 </body>
 </html>
