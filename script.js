@@ -15,13 +15,43 @@ function addBookToLibrary() {
     bookForm.reset();      
 }
 
-function showBooks(){   //show all books in cards that have been added
+function addCard(){   //loop through all books to add cards to DOM 
+    let fragment = document.createDocumentFragment();
+
+    myLibrary.forEach(book => {                                   
+        let bookInfoDiv = document.createElement('div');
+        let cardDiv = document.createElement('div');
+        let removeButton = document.createElement('button');
+
+        removeButton.innerText = "Remove Book";             
+        removeButton.style = "removeBook";
+        
+        bookInfoDiv.style = ('bookInfo');         
+        cardDiv.style = ('bookCard');
+        
+        for (const key in book){
+            let div = bookInfoDiv.cloneNode();
+            div.innerText = `${key}: ${book[key]}`;
+            cardDiv.appendChild(div);
+        }
+
+        cardDiv.appendChild(removeButton);
+        fragment.appendChild(cardDiv);
+    });
+    
+    bookCards.appendChild(fragment);        
+}    
+function clearLibraryCards(){    
+    
+    while (bookCards.firstChild) {
+        bookCards.removeChild(bookCards.firstChild);
+}
 
 }
 
 function removeBook(){ //take away any shown books
-
 }
+
 
 function readStatus(){ //change read status on books in libary
 
@@ -36,14 +66,14 @@ function hideForm(){
 }
 
 function buttonPress(target){
-    console.log(target);
     switch(target){
         case 'addLibrary':
+            clearLibraryCards();
             showForm();
             break;
         case 'viewLibrary':
             hideForm();
-            showBooks();
+            addCard();
             break;
         case 'addBook':
             addBookToLibrary();
@@ -58,8 +88,8 @@ let myLibrary = new Array;
 
 const bookForm = document.querySelector('#bookForm');
 const buttons = document.querySelector('body');
+const bookCards = document.querySelector('#bookContainer');
 
-Book('the hobbit', 'j.r.r tolkien', '200', 'no');
 
 console.log('buttons');
 console.log(myLibrary);
