@@ -7,7 +7,13 @@ function Book(title, author, pages, read){
 }
 
 Book.prototype.readBook = function (index) {
-console.log(this.index);
+    const card = document.querySelector(`[data-index="${index}"]`);                    
+    const listRead = card.querySelector(`[data-id="read"]`);
+    const buttonRead = card.querySelector(`.readBook`);
+    this.read = !this.read;
+
+    listRead.innerText = (this.read === true)? 'Read: Yes': 'Read: No';
+    buttonRead.innerText = (this.read === true)? 'Mark as Unread': 'Mark as Read';
 
 }
 
@@ -21,34 +27,43 @@ function addBookToLibrary() {
     bookForm.reset();      
 }
 
-function renderHTML(){   //loop through all books to add cards to DOM 
+function createCardHTML(book){
+    let read = (book.read === true)? 'Yes': 'No';
+    let html =`
+            <ul style="listCard">
+                <li>Title: ${book.title}</li>
+                <li>Author: ${book.author}</li>
+                <li>Pages: ${book.pages}</li>
+                <li data-id="read">Read: ${read}</li>
+            </ul>        
+            `
+    return html;
+}
+
+function renderCardHTML(){   //loop through all books to add cards to DOM 
     let fragment = document.createDocumentFragment();
 
     myLibrary.forEach(book => {                                   
+        const index = myLibrary.indexOf(book); //used to match array index to div amd buttons
         const bookInfoDiv = document.createElement('div');
         const cardDiv = document.createElement('div');
         const readButton = document.createElement('button');
         const removeButton = document.createElement('button');
-        const index = myLibrary.indexOf(book);
 
-        removeButton.innerText = 'Remove Book';             
-        removeButton.style = 'removeBook';    
+        removeButton.innerText = "Remove Book";             
+        removeButton.className = "removeBook";    
         removeButton.onclick = () => removeBook(index);
 
         readButton.innerText = (book.read === false)? 'Mark Read' : 'Mark Unread';
-        readButton.style = 'readBook';
+        readButton.className = "readBook";
         readButton.onclick = () => book.readBook(index);
 
-        bookInfoDiv.style = 'bookInfo';  
+        bookInfoDiv.innerHTML = createCardHTML(book);
 
-        cardDiv.style = 'bookCard';
-        cardDiv.dataset.index = index;  //set a index for dom removal for remove button    
+        cardDiv.className = "bookCard";
+        cardDiv.dataset.index = index;   
         
-        for (const key in book){                    //goes through book object to make dom nodes
-            let div = bookInfoDiv.cloneNode();      //clones original book info node to be able to add multiple different nodes of text 
-            div.innerText = `${key}: ${book[key]}`;
-            cardDiv.appendChild(div);
-        }
+        cardDiv.appendChild(bookInfoDiv);
         cardDiv.appendChild(readButton);
         cardDiv.appendChild(removeButton);            
         fragment.appendChild(cardDiv);
@@ -56,7 +71,7 @@ function renderHTML(){   //loop through all books to add cards to DOM
     bookCards.appendChild(fragment);
 }   
 
-function clearLibraryCards(){    
+function clearCardHTML(){    
     
     while (bookCards.firstChild) {
         bookCards.removeChild(bookCards.firstChild);
@@ -65,8 +80,9 @@ function clearLibraryCards(){
 }
 
 function removeBook(index){
-    bookCards.removeChild(document.querySelector(`[data-index='${index}']`));          //remove node
-    myLibrary.pop(index);       //remove book from library array      
+    myLibrary.splice(index, 1);       //remove book from library array
+    clearCardHTML();         
+    renderCardHTML();
 }
 
 
@@ -82,12 +98,13 @@ function hideForm(){
 function buttonPress(target){
     switch(target){
         case 'addLibrary':
-            clearLibraryCards();
+            clearCardHTML();
             showForm();
             break;
         case 'viewLibrary':
             hideForm();
-            renderHTML();
+            clearCardHTML();
+            renderCardHTML();
             break;
         case 'addBook':
             addBookToLibrary();
@@ -104,7 +121,10 @@ const bookForm = document.querySelector('#bookForm');
 const buttons = document.querySelector('body');
 const bookCards = document.querySelector('#bookContainer');
 
-console.log('buttons');
-console.log(myLibrary);
 
 buttons.addEventListener('click', button => buttonPress(button.target.id));
+
+myLibrary.push(new Book('The Hobbit', 'J.R.R Tolkien', '100', true));
+
+console.log('buttons');
+console.log(myLibrary);
