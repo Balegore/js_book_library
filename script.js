@@ -1,8 +1,14 @@
+
 function Book(title, author, pages, read){
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+}
+
+Book.prototype.readBook = function (index) {
+console.log(this.index);
+
 }
 
 function addBookToLibrary() {       
@@ -15,47 +21,55 @@ function addBookToLibrary() {
     bookForm.reset();      
 }
 
-function addCard(){   //loop through all books to add cards to DOM 
+function renderHTML(){   //loop through all books to add cards to DOM 
     let fragment = document.createDocumentFragment();
 
     myLibrary.forEach(book => {                                   
-        let bookInfoDiv = document.createElement('div');
-        let cardDiv = document.createElement('div');
-        let removeButton = document.createElement('button');
+        const bookInfoDiv = document.createElement('div');
+        const cardDiv = document.createElement('div');
+        const readButton = document.createElement('button');
+        const removeButton = document.createElement('button');
+        const index = myLibrary.indexOf(book);
 
-        removeButton.innerText = "Remove Book";             
-        removeButton.style = "removeBook";
+        removeButton.innerText = 'Remove Book';             
+        removeButton.style = 'removeBook';    
+        removeButton.onclick = () => removeBook(index);
+
+        readButton.innerText = (book.read === false)? 'Mark Read' : 'Mark Unread';
+        readButton.style = 'readBook';
+        readButton.onclick = () => book.readBook(index);
+
+        bookInfoDiv.style = 'bookInfo';  
+
+        cardDiv.style = 'bookCard';
+        cardDiv.dataset.index = index;  //set a index for dom removal for remove button    
         
-        bookInfoDiv.style = ('bookInfo');         
-        cardDiv.style = ('bookCard');
-        
-        for (const key in book){
-            let div = bookInfoDiv.cloneNode();
+        for (const key in book){                    //goes through book object to make dom nodes
+            let div = bookInfoDiv.cloneNode();      //clones original book info node to be able to add multiple different nodes of text 
             div.innerText = `${key}: ${book[key]}`;
             cardDiv.appendChild(div);
         }
-
-        cardDiv.appendChild(removeButton);
+        cardDiv.appendChild(readButton);
+        cardDiv.appendChild(removeButton);            
         fragment.appendChild(cardDiv);
-    });
-    
-    bookCards.appendChild(fragment);        
-}    
+    });  
+    bookCards.appendChild(fragment);
+}   
+
 function clearLibraryCards(){    
     
     while (bookCards.firstChild) {
         bookCards.removeChild(bookCards.firstChild);
-}
+    }
 
 }
 
-function removeBook(){ //take away any shown books
+function removeBook(index){
+    bookCards.removeChild(document.querySelector(`[data-index='${index}']`));          //remove node
+    myLibrary.pop(index);       //remove book from library array      
 }
 
 
-function readStatus(){ //change read status on books in libary
-
-}
 
 function showForm(){ 
     bookForm.style.display = "block";
@@ -73,7 +87,7 @@ function buttonPress(target){
             break;
         case 'viewLibrary':
             hideForm();
-            addCard();
+            renderHTML();
             break;
         case 'addBook':
             addBookToLibrary();
@@ -90,8 +104,7 @@ const bookForm = document.querySelector('#bookForm');
 const buttons = document.querySelector('body');
 const bookCards = document.querySelector('#bookContainer');
 
-
 console.log('buttons');
 console.log(myLibrary);
 
-buttons.addEventListener('click', button => buttonPress(button.target.id))
+buttons.addEventListener('click', button => buttonPress(button.target.id));
