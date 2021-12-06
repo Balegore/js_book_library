@@ -87,12 +87,14 @@ function removeBook(index){
 
 
 
-function showForm(){ 
-    bookForm.style.display = "block";
+function showForm(){
+    //bookForm.style.display = 'block';
+    bookForm.parentElement.style.display = 'block';
 }
 
 function hideForm(){ 
-    bookForm.style.display = "none";   
+   // bookForm.style.display = 'hidden';
+    bookForm.parentElement.style.display = 'none';
 }
 
 function buttonPress(target){

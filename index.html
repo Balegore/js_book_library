@@ -14,27 +14,30 @@
         <button id="viewLibrary">View Books</button> 
     </div>
     <div id="bookContainer"></div>
-    <div id="formContainer">
+    <div id="formContainer" class="formContainer">
         <form id="bookForm" onsubmit="return false" autocomplete="off">                           
-               <div>
+               <div class="form">
                     <label for="formTitle">Title</label>
-                    <input name="title" id="formTitle">                              
-               <div>
+                    <input name="title" id="formTitle">  
+               </div>                             
+               <div class="form">
                     <label for="formAuthor">Author</label>
                     <input name="author" id="formAuthor">
                </div>                
-               <div>
+               <div class="form">
                     <label for="formPages">Number of Pages</label>
                     <input name="pages" id="formPages">
                </div>                
-               <div>
+               <div class="form">
                     <p>Have you read?</p>
-                    <label for="read">Yes</label>
-                    <input name ="read" type="radio" id="formReadYes" value="true" checked>                    
-                    <label for ="read">No</label>
-                    <input name ="read" type="radio" id="formReadNo" value ="false">
+                    <div class="form radio">
+                         <label for="read">Yes</label>
+                         <input name ="read" type="radio" id="formReadYes" value="true" checked>                    
+                         <label for ="read">No</label>
+                         <input name ="read" type="radio" id="formReadNo" value ="false">
+                    </div>
                </div>                             
-               <div>
+               <div class="form">
                     <button id="addBook">Submit</button>
                </div>
             

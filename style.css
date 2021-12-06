@@ -1,0 +1,75 @@
+body{
+    display: flex;
+    flex-flow: column wrap;
+    background-color: white;
+    align-items: center;
+    box-sizing: border-box;    
+}
+
+button{
+    background-color: rgb(201, 207, 207);
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+input{
+    border-radius: 4px;
+    border: 1px solid;   
+    padding: 14px 20px;
+    margin: 8px 0px; 
+}
+
+input[type=text]:focus {
+    border: 3px solid;
+}
+
+input[type="radio"]{
+    width: auto;
+}
+
+.formContainer{
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: flex-start;
+    background-color: rgb(236, 236, 236);
+    padding: 20px 10px;    
+}
+
+
+.form{
+    display: flex;
+    flex-flow: column;
+}
+
+.form.radio{
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+#bookContainer{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: left;
+
+}
+
+.bookCard{
+    border: solid black 2px;
+    border-radius: 5px;
+    padding: 5px 2px;
+    margin: 5px;
+    background-color: burlywood;
+}
