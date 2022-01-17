@@ -1,21 +1,23 @@
 
-function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book{
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    readBook(index) {
+        const card = document.querySelector(`[data-index="${index}"]`);                    
+        const listRead = card.querySelector(`[data-id="read"]`);
+        const buttonRead = card.querySelector(`.readBook`);
+        this.read = !this.read;
+    
+        listRead.innerText = (this.read === true)? 'Read: Yes': 'Read: No';
+        buttonRead.innerText = (this.read === true)? 'Mark as Unread': 'Mark as Read';    
+    }
 }
 
-Book.prototype.readBook = function (index) {
-    const card = document.querySelector(`[data-index="${index}"]`);                    
-    const listRead = card.querySelector(`[data-id="read"]`);
-    const buttonRead = card.querySelector(`.readBook`);
-    this.read = !this.read;
-
-    listRead.innerText = (this.read === true)? 'Read: Yes': 'Read: No';
-    buttonRead.innerText = (this.read === true)? 'Mark as Unread': 'Mark as Read';
-
-}
 
 function addBookToLibrary() {       
     const formData = new FormData(bookForm); //gets all form data
@@ -122,7 +124,6 @@ let myLibrary = new Array;
 const bookForm = document.querySelector('#bookForm');
 const buttons = document.querySelector('body');
 const bookCards = document.querySelector('#bookContainer');
-
 
 buttons.addEventListener('click', button => buttonPress(button.target.id));
 
